@@ -1,0 +1,6 @@
+pypdf==6.1.1
+cryptography>=3.1
+pytest==8.4.2
+pytesseract
+python-dotenv
+mcp
