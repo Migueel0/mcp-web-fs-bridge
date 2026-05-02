@@ -1,0 +1,14 @@
+{
+  "name": "mcp-playwright-wrapper",
+  "version": "1.0.0",
+  "description": "SSE Wrapper for Microsoft Playwright MCP",
+  "main": "wrapper.js",
+  "scripts": {
+    "start": "node wrapper.js"
+  },
+  "dependencies": {
+    "@playwright/mcp": "latest",
+    "express": "^4.18.2",
+    "playwright": "latest"
+  }
+}
