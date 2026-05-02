@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+
+  mcp-pdf-reader:
+    build: 
+      context: ${MCP_PDF_READER_PATH}
+    ports:
+      - "8000:8000"
+    volumes:
+      - ${MCP_PDF_READER_PATH}:/app
+      - ${DOCS_PATH}:/mnt/documents
+    restart: unless-stopped
+
+  mcp-filesystem:
+    build:
+      context: ./mcp-filesystem
+    ports:
+      - "8001:8001"
+    volumes:
+      - ./mcp-filesystem:/app
+      - ${DOCS_PATH}:/mnt/documents
+    restart: unless-stopped
+
+  mcp-playwright:
+    build:
+      context: ./mcp-playwright
+    ports:
+      - "8002:8002"
+    volumes:
+      - ./mcp-playwright:/app
+    shm_size: '1gb'
+    restart: unless-stopped
