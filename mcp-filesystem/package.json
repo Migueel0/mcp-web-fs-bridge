@@ -1,0 +1,13 @@
+{
+  "name": "mcp-filesystem-wrapper",
+  "version": "1.0.0",
+  "description": "SSE Wrapper for Anthropic Filesystem MCP",
+  "main": "wrapper.js",
+  "scripts": {
+    "start": "node wrapper.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/server-filesystem": "latest",
+    "express": "^4.18.2"
+  }
+}
