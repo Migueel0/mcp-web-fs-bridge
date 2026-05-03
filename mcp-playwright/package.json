@@ -1,0 +1,22 @@
+{
+  "name": "mcp-playwright",
+  "version": "1.0.0",
+  "description": "MCP Playwright Server for Web Automation",
+  "main": "dist/index.js",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "start": "node wrapper.js",
+    "dev": "tsc -w"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "latest",
+    "playwright": "^1.44.0",
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/express": "^4.17.21",
+    "typescript": "^5.3.3"
+  }
+}
