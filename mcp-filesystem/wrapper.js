@@ -1,21 +1,19 @@
-const express = require('express');
-const { spawn } = require('child_process');
-const readline = require('readline');
+import express from 'express';
+import { spawn } from 'child_process';
+import readline from 'readline';
 
 const app = express();
 app.use(express.json());
-
 
 const mcpCommand = 'npx';
 
 const mcpArgs = [
     '-y', 
     '@modelcontextprotocol/server-filesystem', 
-    '/mnt/desktop', 
-    '/mnt/documentos-prueba'
+    '/mnt/documents'
 ];
 
-const mcpProcess = spawn(mcpCommand, mcpArgs,{ shell: true });
+const mcpProcess = spawn(mcpCommand, mcpArgs, { shell: true });
 let sseResponse = null;
 
 const rl = readline.createInterface({
@@ -34,21 +32,20 @@ mcpProcess.stderr.on('data', (data) => {
 });
 
 
-app.get('/sse', (req, res) => {    
+app.get('/fs/sse', (req, res) => {    
     res.setHeader('Content-Type', 'text/event-stream');
     res.setHeader('Cache-Control', 'no-cache');
     res.setHeader('Connection', 'keep-alive');
     sseResponse = res;
     
-    res.write(`event: endpoint\ndata: /messages\n\n`);
+    res.write(`event: endpoint\ndata: /fs/messages\n\n`);
 });
 
-app.post('/messages', (req, res) => {
+app.post('/fs/messages', (req, res) => {
     const message = JSON.stringify(req.body);
     mcpProcess.stdin.write(message + '\n');
     res.status(200).send('OK');
 });
-
 
 const PORT = 8001;
 app.listen(PORT, '0.0.0.0', () => {

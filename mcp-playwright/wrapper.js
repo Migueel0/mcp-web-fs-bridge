@@ -1,6 +1,6 @@
-const express = require('express');
-const { spawn } = require('child_process');
-const readline = require('readline');
+import express from 'express';
+import { spawn } from 'child_process';
+import readline from 'readline';
 
 const app = express();
 app.use(express.json());
@@ -8,10 +8,8 @@ app.use(express.json());
 const mcpCommand = 'npx';
 const mcpArgs = ['-y', '@playwright/mcp@latest'];
 
-
 const mcpProcess = spawn(mcpCommand, mcpArgs, { shell: true });
 let sseResponse = null;
-
 
 const rl = readline.createInterface({
     input: mcpProcess.stdout,
@@ -29,16 +27,15 @@ mcpProcess.stderr.on('data', (data) => {
 });
 
 
-app.get('/sse', (req, res) => {
+app.get('/web/sse', (req, res) => {
     res.setHeader('Content-Type', 'text/event-stream');
     res.setHeader('Cache-Control', 'no-cache');
     res.setHeader('Connection', 'keep-alive');
     sseResponse = res;
-    res.write(`event: endpoint\ndata: /messages\n\n`);
+    res.write(`event: endpoint\ndata: /web/messages\n\n`);
 });
 
-
-app.post('/messages', (req, res) => {
+app.post('/web/messages', (req, res) => {
     const message = JSON.stringify(req.body);
     mcpProcess.stdin.write(message + '\n');
     res.status(200).send('OK');
